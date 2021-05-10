@@ -1,0 +1,15 @@
+WAGE INDEX: (NOTE THIS IS IN TERMS OF STATE NOT CITY)
+Taken from --> Total hourly rates of pay excluding bonuses: all sectors by state, original (financial year index numbers for year ended June quarter)
+https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/wage-price-index-australia/dec-2020
+
+HOUSING INDEX:
+Taken from --> Residential property price index, index numbers and percentage changes
+https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/residential-property-price-indexes-eight-capital-cities/dec-2020
+
+CPI INDEX:
+Taken from --> CPI: All Groups, Index Numbers and Percentage Changes
+https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/mar-2021
+
+ELECTRICITY USAGE: (NOTE THIS IS IN TERMS OF STATE NOT CITY)
+Taken From --> Annual electricity consumption - NEM
+https://www.aer.gov.au/wholesale-markets/wholesale-statistics/annual-electricity-consumption-nem
