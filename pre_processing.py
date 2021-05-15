@@ -67,15 +67,19 @@ def create_regression(df):
 
     R2 = regression_HPI.score(Wage_Train, HPI_Train)
     grad = (reg_y[1]-reg_y[0])/(reg_x[1]-reg_x[0])
-    ax[0,0].set_title(f"Wages to House Prices - R^2 = {R2} - Gradient = {grad}")
+    ax[0,0].set_title(f"Hourly Pay to House Prices - R^2 = {R2} - Gradient = {grad}")
     ax[0,0].scatter(x=df.Wage_Index, y=df.House_Price_Index)
     ax[0,0].plot(reg_x, reg_y)
+    ax[0,0].set_xlabel("Hourly Pay")
+    ax[0,0].set_ylabel("House Prices")
 
     # Plotting residuals for HPI
     res_reg = regression_HPI.predict(Wage_Train)
     residuals = HPI_Train - res_reg
-    ax[0,1].set_title("Wages to House Prices Residuals")
+    ax[0,1].set_title("Hourly Pay to House Prices Residuals")
     ax[0,1].scatter(Wage_Train, residuals)
+    ax[0,1].set_xlabel("Hourly Pay")
+    ax[0,1].set_ylabel("House Price Residuals")
 
     # Get Training set for CPI
     Wage_Train = df.Wage_Index.loc["98":"20"].to_numpy()
@@ -92,14 +96,18 @@ def create_regression(df):
 
     R2 = regression_CPI.score(Wage_Train, CPI_Train)
     grad = (reg_y[1]-reg_y[0])/(reg_x[1]-reg_x[0])
-    ax[1,0].set_title(f"Wages to CPI - R^2 = {R2} - Gradient = {grad}")
+    ax[1,0].set_title(f"Hourly Pay to CPI - R^2 = {R2} - Gradient = {grad}")
     ax[1,0].scatter(x=df.Wage_Index, y=df.CPI_Index)
+    ax[1,0].set_xlabel("Hourly Pay")
+    ax[1,0].set_ylabel("CPI")
     ax[1,0].plot(reg_x, reg_y)
 
     # Plotting residuals for CPI
     res_reg = regression_CPI.predict(Wage_Train)
     residuals = CPI_Train - res_reg
-    ax[1,1].set_title("Wages to CPI Residuals")
+    ax[1,1].set_title("Hourly Pay to CPI Residuals")
+    ax[1,1].set_xlabel("Hourly Pay")
+    ax[1,1].set_ylabel("CPI Residuals")
     ax[1,1].scatter(Wage_Train, residuals)
 
     fig.tight_layout(pad=3.0)
