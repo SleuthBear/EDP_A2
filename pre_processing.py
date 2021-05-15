@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd 
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
-
+plt.style.use('ggplot')
 def create_dataframe(city):
 
     CPI = pd.read_csv(f"data sources/CITIES/{city}/CPI_{city}.csv")
