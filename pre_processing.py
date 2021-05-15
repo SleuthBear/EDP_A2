@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd 
 import matplotlib.pyplot as plt
-
+from sklearn.linear_model import LinearRegression
 
 def create_dataframe(city):
 
@@ -38,3 +38,72 @@ brisbane = create_dataframe("brisbane")
 darwin = create_dataframe("darwin")
 sydney = create_dataframe("sydney")
 capitals_avg = create_dataframe("capitals_avg")
+
+#melbourne.plot.scatter("Power", "House_Price_Index")
+#melbourne.plot.scatter("Power", "Wage_Index")
+#plt.scatter(x=melbourne.index, y=melbourne.Power)
+#plt.scatter(x=melbourne.index, y=melbourne.House_Price_Index)
+#plt.show()
+
+# Regression line calculation
+def create_regression(df):    
+
+    fig, ax = plt.subplots(2, 2)
+
+
+    # Get training set for House Prices
+    Wage_Train = df.Wage_Index.loc["03":"20"].to_numpy()
+    Wage_Train = Wage_Train.reshape(-1, 1)
+    HPI_Train = df.House_Price_Index.loc["03":"20"].to_numpy()
+    HPI_Train = HPI_Train.reshape(-1, 1)
+    
+    # Get regression line
+    regression_HPI = LinearRegression()
+    regression_HPI.fit(Wage_Train, HPI_Train)
+    reg_x = np.array([[60, 150]])
+    reg_x = reg_x.reshape(-1, 1)
+    reg_y = regression_HPI.predict(reg_x)
+
+
+    R2 = regression_HPI.score(Wage_Train, HPI_Train)
+    grad = (reg_y[1]-reg_y[0])/(reg_x[1]-reg_x[0])
+    ax[0,0].set_title(f"Wages to House Prices - R^2 = {R2} - Gradient = {grad}")
+    ax[0,0].scatter(x=df.Wage_Index, y=df.House_Price_Index)
+    ax[0,0].plot(reg_x, reg_y)
+
+    # Plotting residuals for HPI
+    res_reg = regression_HPI.predict(Wage_Train)
+    residuals = HPI_Train - res_reg
+    ax[0,1].set_title("Wages to House Prices Residuals")
+    ax[0,1].scatter(Wage_Train, residuals)
+
+    # Get Training set for CPI
+    Wage_Train = df.Wage_Index.loc["98":"20"].to_numpy()
+    Wage_Train = Wage_Train.reshape(-1, 1)
+    CPI_Train = df.CPI_Index.loc["98":"20"].to_numpy()
+    CPI_Train = CPI_Train.reshape(-1, 1)
+
+    # Get regression line
+    regression_CPI = LinearRegression()
+    regression_CPI.fit(Wage_Train, CPI_Train)
+    reg_x = np.array([[60, 150]])
+    reg_x = reg_x.reshape(-1, 1)
+    reg_y = regression_CPI.predict(reg_x)
+
+    R2 = regression_CPI.score(Wage_Train, CPI_Train)
+    grad = (reg_y[1]-reg_y[0])/(reg_x[1]-reg_x[0])
+    ax[1,0].set_title(f"Wages to CPI - R^2 = {R2} - Gradient = {grad}")
+    ax[1,0].scatter(x=df.Wage_Index, y=df.CPI_Index)
+    ax[1,0].plot(reg_x, reg_y)
+
+    # Plotting residuals for CPI
+    res_reg = regression_CPI.predict(Wage_Train)
+    residuals = CPI_Train - res_reg
+    ax[1,1].set_title("Wages to CPI Residuals")
+    ax[1,1].scatter(Wage_Train, residuals)
+
+    fig.tight_layout(pad=3.0)
+    fig.set_size_inches(15, 10)
+    plt.show()
+
+create_regression(capitals_avg)
