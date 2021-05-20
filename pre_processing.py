@@ -112,6 +112,7 @@ def create_regression(df):
 
     fig.tight_layout(pad=3.0)
     fig.set_size_inches(15, 10)
+    fig.suptitle("Melbourne", fontsize=16)
     plt.show()
 
 create_regression(capitals_avg)
